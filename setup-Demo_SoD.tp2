@@ -1,0 +1,234 @@
+// Never Forget: Comments can "lie", but code not so much ;P
+// -----------
+// Information
+// -----------
+BACKUP ~./weidu_external/demo/backup~ // %MOD_FOLDER% doesn't work here
+AUTHOR ~Incrementis (incrementis@gmail.com)~
+VERSION ~v0.24.17~
+AUTO_EVAL_STRINGS// This will prevent the need of EVAL for string variables
+
+
+// --------------
+// Initialization
+// --------------
+ALWAYS 
+	// LIBRARY INCLUDES(Don't touch these)
+	// -----------------------------------
+	INCLUDE ~%MOD_FOLDER%/lib/windows/dynArrayFunctionalities.tph~
+	INCLUDE ~%MOD_FOLDER%/lib/dialogTlkFunctionalities.tph~
+	INCLUDE ~%MOD_FOLDER%/lib/fileHandling.tph~
+	
+	// EE SOUNDSET COMPATIBILITY FILE(Don't touch this)
+	// ------------------------------------------------
+	ACTION_IF NOT FILE_EXISTS_IN_GAME ~M_cdsnd.lua~ THEN
+	BEGIN
+		OUTER_SPRINT ~!_filename~ ~weidu_external/%MOD_FOLDER%/temp/M_cdsnd.lua~
+		LAM CREATE_FILE
+		// File is used to enter strref text reference which will then be displayed on the terminal.
+		COPY ~./weidu_external/%MOD_FOLDER%/temp/M_cdsnd.lua~ ~override~
+	END
+
+END// End of "ALWAYS"
+
+
+// ---------
+// Languages
+// ---------
+LANGUAGE
+	~English~	// Language
+	~en_US~		// Directory
+LANGUAGE
+	~Deutsch~	
+	~de_DE~	
+
+// ---------------------------------------------------
+// Install "IEEE Player Character Voice Installer" Mod
+// ---------------------------------------------------
+BEGIN ~Vox Demo BG:EE~
+// GLOBAL INCLUDES(commenting out "CheckTlk.tpa" or "CheckVoxNames.tpa" is not recomended)
+// ---------------------------------------------------------------------------------------
+INCLUDE ~%MOD_FOLDER%/arrays/DeclareVoxArrays.tpa~
+INCLUDE ~%MOD_FOLDER%/proprietary/CheckArrays.tpa~
+INCLUDE ~%MOD_FOLDER%/proprietary/CheckTlk.tpa~
+
+
+// VOX-SOUND-FILES FOR PLAYER CHARACTER
+// ------------------------------------
+COPY ~%MOD_FOLDER%/vox/%LANGUAGE%/sound~ 	~lang/%LANGUAGE%/sounds~
+COPY ~%MOD_FOLDER%/vox/%LANGUAGE%/wav~ 		~override~
+
+// WRITE INTO DIALOG.TLK
+// ---------------------
+// Loop variables
+OUTER_SET tlkCondition 			= 0
+OUTER_SET tlkConditionalIndex 	= 0
+OUTER_FOR(index = 0; index < slotNumbers; ++index) 
+BEGIN
+	// Array elment values
+	OUTER_SPRINT text 	$~%refTextArray%~(~%index%~)
+	OUTER_SPRINT sound 	$~%refSoundArray%~(~%index%~)
+	
+	ACTION_IF NOT(~%text%~ STRING_EQUAL ~!_NULL~) THEN
+	BEGIN
+		// Writes the text and sound into the dialog.tlk
+		LAF RESOLVE_STR_REF_WITH_STRINGS
+			STR_VAR
+				text 	= ~%text%~
+				sound	= ~%sound%~
+			RET
+				stringref = strRef
+		END
+		
+		// Stores the string references to add them later into the specific 2DA file
+		OUTER_SET 		~!_position~ 	= index
+		OUTER_SET 		~!_maxSlots~ 	= slotNumbers
+		OUTER_SET		~!_collected~	= 0
+		OUTER_SPRINT 	~!_useArrayName~ ~%TLKindexArray%~
+		OUTER_SET 		~!_arrayValue~	= stringref
+		LAM DYN_ARRAY_SET_VALUES
+
+		OUTER_SET tlkCondition 			= 1
+		OUTER_SET tlkConditionalIndex 	= index
+	END	
+END
+// All array values are collected
+ACTION_IF (tlkCondition = 1) THEN
+BEGIN
+	OUTER_SET 		~!_position~ 	= tlkConditionalIndex
+	OUTER_SET 		~!_maxSlots~ 	= slotNumbers
+	OUTER_SET		~!_collected~	= 1
+	OUTER_SPRINT 	~!_useArrayName~ ~%TLKindexArray%~
+	OUTER_SET 		~!_arrayValue~	= stringref
+	LAM DYN_ARRAY_SET_VALUES
+END
+ 
+ 
+// TODO: DELETE IT
+OUTER_FOR(index = 0; VARIABLE_IS_SET $~%refSoundArray%~(~%index%~); ++index) 
+BEGIN
+		
+	OUTER_TEXT_SPRINT 	test0 $~%refTextArray%~(~%index%~)
+	OUTER_TEXT_SPRINT 	test1 $~%refSoundArray%~(~%index%~)
+	OUTER_TEXT_SPRINT 	test3 $~%TLKindexArray%~(~%index%~)
+	OUTER_SET 			test4 = $~%voxPositionArray%~(~%index%~)
+	PRINT ~text:%test0%, sound:%test1%: strref:%test3% in Position: %test4%~
+END
+
+
+
+
+
+// Index for the names array
+//OUTER_SET nameIndex = 0
+OUTER_FOR(index = 0; index < nameNumbers; ++index) 
+BEGIN
+	// TODO: EXPLAIN CONCEPT, BECUASE IT IS TOO COMPLEX!!!!
+	// WRITE INTO CHARSND.2DA
+	// ----------------------
+	// Initializes vox soundslot with -1 as default reference values
+	OUTER_SPRINT initName $~%voxNameArray%~(~%index%~)
+	APPEND_COL ~CHARSND.2da~ "$ $ %initName% -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+	COPY_EXISTING "CHARSND.2da" "override/CHARSND.2da"
+	PRETTY_PRINT_2DA
+
+	// Initializes current number of columns in CHARSND.2DA ?????WHY????
+	COUNT_2DA_COLS maxCols2DA
+	OUTER_SET maxCols = maxCols2DA - 1 
+
+	// Finds the correct index for vox name
+	OUTER_FOR(voxIndex = 0; voxIndex < slotNumbers; ++voxIndex)
+	BEGIN	
+		// Values	
+		OUTER_SPRINT 	sound 			$~%refSoundArray%~(~%voxIndex%~)
+		OUTER_SET 		position 		= $~%voxPositionArray%~(~%voxIndex%~)
+		OUTER_SET  		reference 		= $~%TLKindexArray%~(~%voxIndex%~)
+		// Length
+		OUTER_SET 		soundLength 	= STRING_LENGTH ~%sound%~
+		OUTER_SET 		nameLength		= STRING_LENGTH ~%initName%~
+		OUTER_SET 		minNameLength 	= nameLength + 1
+		OUTER_SET 		maxNameLength 	= nameLength + 2
+
+		PRINT ~ slotNumbers:%slotNumbers% soundLength:%soundLength% nameLength:%nameLength% minNameLength:%minNameLength% maxNameLength:%maxNameLength%~
+
+		// Checks range of name length and if it is not already used for another vox name
+		ACTION_IF ( (soundLength >= minNameLength) AND
+					(soundLength <= maxNameLength) AND
+					NOT (~%sound%~ STRING_EQUAL ~!_NULL~)) THEN
+		BEGIN	
+
+			// WeiDU intern function
+			LAF SUBSTRING 
+				INT_VAR
+					start=0				// Begins from the first letter
+					length=nameLength	// Tells how many letters are read
+				STR_VAR
+					string=~%sound%~	// The string which will taken the substring from
+				RET
+					slicedName=substring
+			END
+
+			// TODO: Delete it!
+			OUTER_SET compare = ~%slicedName%~ STRING_EQUAL ~%initName%~
+			PRINT ~1.IF: sound:%sound%  voxIndex:%voxIndex%  slicedName:%slicedName%  name:%initName% compare:%compare%~
+
+			// Checks if the sound name belongs to the vox name
+			ACTION_IF (~%slicedName%~ STRING_EQUAL ~%initName%~) THEN
+			BEGIN
+				// TODO: Delete it!
+				OUTER_SET compare = ~%slicedName%~ STRING_EQUAL ~%initName%~
+				PRINT ~2.IF: sound:%sound%  voxIndex:%voxIndex%  slicedName:%slicedName%  name:%initName% compare:%compare%~
+
+				// Writes the string reference into the correct position
+				COPY_EXISTING ~CHARSND.2da~ "override/CHARSND.2da"
+				// "row"---"column"---"required column count"---"value entry"
+				SET_2DA_ENTRY ~%position%~ ~%maxCols%~ ~%maxCols%~ ~%reference%~
+				PRETTY_PRINT_2DA
+
+				// TODO: Delete it!
+				PRINT ~sound before: %sound%~
+				OUTER_SET 		~!_position~ 	= voxIndex
+				OUTER_SET 		~!_maxSlots~ 	= slotNumbers
+				OUTER_SET		~!_collected~	= 0
+				OUTER_SPRINT 	~!_useArrayName~ ~%refSoundArray%~
+				OUTER_SPRINT 	~!_arrayValue~	 ~!_NULL~
+				LAM DYN_ARRAY_SET_VALUES
+				//TODO: Delete it!
+				OUTER_SPRINT sound $~%refSoundArray%~(~%voxIndex%~)
+				PRINT ~sound after: %sound%~
+				PRINT ~slicedName:%slicedName%~
+
+			END // End of inner ACTION_IF
+		END // End of outer ACTION_IF
+	END // End of inner loop
+END // End of outer loop
+// All array values are collected
+OUTER_SET 		~!_position~ 	= voxIndex - 1
+OUTER_SET 		~!_maxSlots~ 	= slotNumbers
+OUTER_SET		~!_collected~	= 1
+OUTER_SPRINT 	~!_useArrayName~ ~%refSoundArray%~
+OUTER_SPRINT 	~!_arrayValue~	 ~!_NULL~
+LAM DYN_ARRAY_SET_VALUES
+// TODO: Delete it!
+OUTER_SPRINT sound $~%refSoundArray%~(0)
+PRINT ~sound after after: %sound%~
+
+
+// WRITE INTO M_cdsnd.lua
+// ----------------------
+// Fills the Lua file with the alternative name of the sound slot, 
+// which will then appear in the character creation menu
+OUTER_FOR(index = 0; index < nameNumbers; ++index)
+BEGIN
+	OUTER_SPRINT selectName 	$~%voxSelectNameArray%~(~%index%~)
+	OUTER_SPRINT name 			$~%voxNameArray%~(~%index%~)
+	OUTER_SET selectNameStrref 	= RESOLVE_STR_REF(~%selectName%~)
+	// Check out ingame BGEE.lua file for more information.
+	// filenames_stringrefs['Sound slot header name from CHARSND.2DA'] = {strref for alternative text display, 2}
+	APPEND ~M_cdsnd.lua~ ~filenames_stringrefs['%name%'] = {%selectNameStrref%, 2}~
+END
+
+// FOOTER INCLUDES
+// ---------------
+//INCLUDE ~%MOD_FOLDER%/lpa/warnings/CheckSOD.tpa~
+//INCLUDE ~%MOD_FOLDER%/lpa/warnings/CheckIEgames.tpa~
+INCLUDE ~%MOD_FOLDER%/proprietary/Cleanup.tpa~
