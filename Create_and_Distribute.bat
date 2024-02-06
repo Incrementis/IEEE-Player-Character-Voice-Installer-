@@ -10,20 +10,15 @@ REM ------------------------
 REM INIT Soundset File Names
 REM ------------------------
 Set soundsetName[0]=!_DEMO
-Set soundsetName[1]=!_DEMB
 REM --------------
 REM INIT Languages
 REM --------------
 REM (en_US = English, de_DE = German)
 Set languages[0]=en_US
-Set languages[1]=de_DE
 REM --------------------------
 REM INIT Soundset Custom Names
 REM --------------------------
 Set en_US[0]=!_Demo(Complete):Female Robot
-Set en_US[1]=!_Demo(Incomplete):Female Robot
-Set de_DE[0]=!_Demo(Vollständig):Weiblich Roboter
-Set de_DE[1]=!_Demo(Unvollständig):Weiblich Roboter
 REM -----------------
 REM INIT Folder Paths
 REM -----------------
