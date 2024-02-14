@@ -62,6 +62,7 @@ For more detailed information, please visit this [projects wiki](#).
 
 ## Compatibility
 * It uses the unofficial [soundset convention](https://www.gibberlings3.net/forums/topic/34560-adding-soundsets-to-the-ees-using-the-ee-soundset-tool/) for advanced sound slots, ensuring compatibility with sound files developed under this standard.
+* WAV files only at this stage of development
 
 ## Languages
 * English
