@@ -1,5 +1,5 @@
 # IEEE-Player-Character-Voice-Installer-
-This is a tool and a template that allows you to install player character voice sounds for certain Infinity Engine games.
+This is a tool and a template that allows you to install player character voice sounds for certain Infinity Engine games. The latest release can be found [here](https://github.com/Incrementis/IEEE-Player-Character-Voice-Installer-/releases).
 
 ![Figure11](https://github.com/Incrementis/Infinity-Engine-Modding-Wiki-Content-/blob/main/IEEE%20PCVI/Images/Figure11.png)
 
