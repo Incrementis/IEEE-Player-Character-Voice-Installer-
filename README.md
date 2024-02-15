@@ -68,9 +68,6 @@ For more detailed information, please visit this [project's wiki](#).
 * English
 * Deutsch
 
-## More Information
-For more detailed information, please visit this [projects wiki](https://github.com/Incrementis/IEEE-Audacity-Savefiles-for-Player-Character-/wiki).
-
 ## Special Thanks
 Thanks to ["The Gibberlings 3"](https://www.gibberlings3.net/forums/) forum and Discord users who helped me with hints and information:
 * CamDawg
