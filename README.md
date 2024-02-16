@@ -90,4 +90,4 @@ Thanks to ["The Gibberlings 3"](https://www.gibberlings3.net/forums/) forum and 
 ## Copyright
 The "*IEEE PCVI*" Project is not developed, supported, or endorsed by BioWare™, Interplay/BlackIsle, Beamdog, or Wizards of the Coast.
 
-Everything else outside of Audacity copyright terms is licensed under a [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+"*IEEE PCVI*" is licensed under a [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
