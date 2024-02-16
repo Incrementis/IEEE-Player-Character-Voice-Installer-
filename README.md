@@ -55,7 +55,7 @@ If you are interested installing more voice lines for the player character, an a
 [soundset installation tool](https://github.com/Gibberlings3/EE_soundset_tool).
 
 ## Guides
-For more detailed information, please visit this [project's wiki](#).
+For more detailed information, please visit this [project's wiki](https://github.com/Incrementis/IEEE-Player-Character-Voice-Installer-/wiki).
 
 ## Operating Systems
 * Implemented and tested on Micrososft Windows 11
