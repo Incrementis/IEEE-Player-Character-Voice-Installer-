@@ -10,7 +10,7 @@ This is a tool and a template that allows you to install player character voice 
 * IWD:EE (Icewind Dale:Enhanced Edition) tested version is 2.6.6.0
 
 ## Key Features
-* Installs pre-made sound files for player character voices.
+* Installs pre-made sound files for player character voices.It is capable of installing WAV and [OGG sound files](https://github.com/Incrementis/IEEE-Audacity-Savefiles-for-Player-Character-/issues/6#issuecomment-1979658895). This renames OGG file extensions to WAV file extensions.
 * Optionally scans "dialog.tlk" with the installed soundset and automatically repairs any incompatible "strref" entries, ensuring seamless integration with the selected voice pack.
 * Serves as a template for creating custom player character voice sets.
 * Requires minimal coding knowledge
