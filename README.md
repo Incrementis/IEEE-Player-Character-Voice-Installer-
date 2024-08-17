@@ -9,6 +9,10 @@ This is a tool and a template that allows you to install player character voice 
 * BG2:EE (Baldur's Gate 2:Enhanced Edition) tested version is 2.6.6.0
 * IWD:EE (Icewind Dale:Enhanced Edition) tested version is 2.6.6.0
 
+## Discusssion
+* [Beamdog Forums](https://forums.beamdog.com/discussion/88275/template-ieee-player-character-voice-installer)
+* [G3 Forums](https://www.gibberlings3.net/forums/topic/37889-templatetool-ieee-player-character-voice-installer/)
+
 ## Key Features
 * Installs pre-made sound files for player character voices.It is capable of installing WAV and [OGG sound files](https://github.com/Incrementis/IEEE-Audacity-Savefiles-for-Player-Character-/issues/6#issuecomment-1979658895). This renames OGG file extensions to WAV file extensions.
 * Optionally scans "dialog.tlk" with the installed soundset and automatically repairs any incompatible "strref" entries, ensuring seamless integration with the selected voice pack.
