@@ -1,3 +1,4 @@
 /guides/*.odt
 /guides/*.odt#
 /guides/*.lnk
+*.code-workspace
