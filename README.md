@@ -63,10 +63,11 @@ For more detailed information, please visit this [project's wiki](https://github
 
 ## Operating Systems
 * Implemented and tested on Micrososft Windows 11
+* The batch file "Create_and_Distribute.bat" works on Windows only. Even though the mod creation with IEEE PCVI needs to be done on Windows, due to the bat file, the created mod itself doesn't need to be Windows-only.
+* The created voice set mod should theoretically work on OSX and UNIX, but it is not tested.
 
 ## Compatibility
 * It uses the unofficial [soundset convention](https://www.gibberlings3.net/forums/topic/34560-adding-soundsets-to-the-ees-using-the-ee-soundset-tool/) for advanced sound slots, ensuring compatibility with sound files developed under this standard.
-* WAV files only at this stage of development
 
 ## Troubleshooting
 ### There are known issues when installing SOD as DLC for BG:EE
